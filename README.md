@@ -1,6 +1,6 @@
 # Real-Time Cartesian Control of UR Robot via MoveIt Servo
 
-This repository provides the necessary steps to achieve **real-time Cartesian position control** of a UR robot using **MoveIt Servo**.
+This repository provides the necessary steps to achieve **real-time Cartesian position control** of any Universal Robot (UR) using **MoveIt Servo**.
 
 > **Please use:** Ubuntu 24.04 and ROS 2 Jazzy
 
