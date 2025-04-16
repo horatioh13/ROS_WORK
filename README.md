@@ -35,13 +35,13 @@ Before proceeding, ensure you have the [hardware](https://docs.universal-robots.
 
    Now you should be able to run this command:
    ```bash
-   ros2 launch ur_robot_driver ur_control.launch.py ur_type:=<robot type ie,'ur16e'> robot_ip:=<robot_ip> kinematics_params_file:= <path_to_yaml_calibration_file> headless_mode:=True
+   ros2 launch ur_robot_driver ur_control.launch.py ur_type:=<robot_type_ie_'ur16e'> robot_ip:=<robot_ip> kinematics_params_file:= <path_to_yaml_calibration_file> headless_mode:=True
    ```
    and a rviz window should open and you should be able to see a virtual simulated robot.
    Next, run this commmand, to test teleoperation of the robot using moveit. Move the control handles, and hit plan and execute observe the robot moving in real life. 
-    ```bash
-    ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=<robot type ie,'ur16e'> launch_rviz:=true launch_servo:=true
-    ```
+   ```bash
+   ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=<robot_type_ie_'ur16e'> launch_rviz:=true launch_servo:=true
+   ```
 ## Configuration instructions
    Modify 'commands1' in launchfromcmdline.py to have the correct ip adresses and kinematics file path.
 
