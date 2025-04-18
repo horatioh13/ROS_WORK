@@ -7,7 +7,7 @@ This repository provides the necessary steps to achieve **real-time Cartesian po
 
 ## Prerequisites
 
-Before proceeding, ensure you have the [hardware](https://docs.universal-robots.com/Universal_Robots_ROS2_Documentation/doc/ur_client_library/doc/setup/robot_setup.html#robot-setup) setup and the [network](https://docs.universal-robots.com/Universal_Robots_ROS2_Documentation/doc/ur_client_library/doc/setup/network_setup.html#network-setup) configured properly so you can communicate with the robot. You can test this by pinging the robot.
+Before proceeding, ensure you have the [hardware](https://docs.universal-robots.com/Universal_Robots_ROS2_Documentation/doc/ur_client_library/doc/setup/robot_setup.html#robot-setup) setup (this is most likely already done and the only thing you will need to do is to switch to 'remote control' mode) and the [network](https://docs.universal-robots.com/Universal_Robots_ROS2_Documentation/doc/ur_client_library/doc/setup/network_setup.html#network-setup) configured properly so you can communicate with the robot. You can test this by pinging the robot.
 
 ## Setup Instructions
 
@@ -59,7 +59,7 @@ Before proceeding, ensure you have the [hardware](https://docs.universal-robots.
    ros2 topic echo /servo_node/delta_twist_cmds
    rqt_graph
    ```
-   In terms of debuggin strategy, it is important to understand the flow of information from the computer to the robot. This will generally be publisher-node-service-node. It must be idenified at which point the information breakdown is      occuring. This can be done easily by echoing topics within nodes to see what they are receiving.
+   In terms of debugging strategy, it is important to understand the flow of information from the computer to the robot. This will generally be publisher-node-service-node. It must be idenified at which point the information breakdown is      occuring. This can be done easily by echoing topics within nodes to see what they are receiving.
    I found that publishing velocity commands directly to the twist controller through the command line caused servo_node to fail in some place, but when I made a python script using rclpy to set up a publisher and publish the velocity        commands to the twist controllre automatically, it worked fine. 
 
    note: ChatGPT and other LLMs are good for helping with debugging, but be warned, some models do not have knowladge of the newest documentation/structure for ros 2 jazzy, and the llms like to go down rabbit holes. I found the LLMs are      best for telling me the exact command line commands to help with debugging. 
