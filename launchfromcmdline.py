@@ -39,7 +39,6 @@ commands3 = ["echo 'echoing /forward_position_controller/commands'; ros2 topic e
              "echo 'echoing /servo_node/delta_twist_cmds'; ros2 topic echo /servo_node/delta_twist_cmds"
 ]
 
-
 if __name__ == "__main__":
     close_existing_processes()
     run_multiple_commands(commands1)

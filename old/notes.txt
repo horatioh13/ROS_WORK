@@ -1,0 +1,91 @@
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur16e robot_ip:=169.254.56.120 kinematics_params_file:=/home/utilisateurom/Documents/ROS_WORK/my_robot_calibration.yaml headless_mode:=True 
+
+ros2 control list_controllers
+
+ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur16e launch_rviz:=true
+ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur16e launch_rviz:=true launch_servo:=true
+
+ros2 control set_controller_state scaled_joint_trajectory_controller active
+
+ros2 launch moveit_servo demo_joint_jog.launch.py
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur16e robot_ip:=169.254.56.120 kinematics_params_file:=/home/utilisateurom/Documents/ROS_WORK/my_robot_calibration.yaml headless_mode:=True 
+
+
+
+ros2 action send_goal /joint_trajectory_controller/follow_joint_trajectory control_msgs/action/FollowJointTrajectory "{trajectory: {joint_names: ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint'], points: [{positions: [0.0, -1.57, 1.57, 0.0, 0.0, 0.0], time_from_start: {sec: 2}}]}}"
+
+
+
+
+
+
+
+ros2 topic pub /forward_velocity_controller/commands std_msgs/msg/Float64MultiArray "data: [0.02, 0.02, 0.0, 0.0, 0.0, 0.0]"
+
+ros2 topic pub /forward_velocity_controller/commands std_msgs/msg/Float64MultiArray "data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
+
+ros2 topic pub /forward_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.02, 0.02, 0.0, 0.0, 0.0, 0.0]" 
+
+ros2 topic pub /forward_position_controller/commands std_msgs/msg/Float64MultiArray "data:
+- 0.1
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0"
+
+ros2 control switch_controllers --deactivate forward_velocity_controller --deactivate scaled_joint_trajectory_controller --activate forward_position_controller
+
+ros2 topic pub /forward_position_controller/commands std_msgs/msg/Float64MultiArray "data: [1.27, -1.56, 1.6, -1.57, -1.59, 1.7]" 
+
+ros2 service call /servo_node/switch_command_type moveit_msgs/srv/ServoCommandType "{command_type: 1}"
+^^ALL ABOVE WORKS
+
+
+ros2 topic pub -r 250 /servo_node/delta_twist_cmds geometry_msgs/msg/TwistStamped "header:
+  stamp: {sec: 0, nanosec: 0}
+  frame_id: 'base_link'
+twist:
+  linear:
+    x: 0.01
+    y: 0.0
+    z: 0.0
+  angular:
+    x: 0.0
+    y: 0.0
+    z: 0.0"
+
+ros2 topic echo /forward_position_controller/commands
+ros2 topic echo /servo_node/delta_twist_cmds
+
+ros2 topic pub -r 250 /servo_node/delta_twist_cmds geometry_msgs/msg/TwistStamped "header:
+  frame_id: 'tool0'
+twist:
+  linear:
+    x: 0.01
+    y: 0.0
+    z: 0.0
+  angular:
+    x: 0.0
+    y: 0.0
+    z: 0.0"
+
+ros2 topic pub -r 250 /servo_node/delta_twist_cmds geometry_msgs/msg/TwistStamped "{header: {stamp: {sec: 0, nanosec: 0}, frame_id: 'base'}, twist: {linear: {x: 0.01, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}}"
+ros2 topic pub -r 250 /servo_node/delta_twist_cmds geometry_msgs/msg/TwistStamped "{header: {stamp: {sec: 0, nanosec: 0}, frame_id: 'base_link'}, twist: {linear: {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}}"
+
+
+
+ros2 topic pub /target_pose geometry_msgs/PoseStamped '
+header:
+  frame_id: "base_link"
+pose:
+  position:
+    x: 1.7
+    y: -1.7
+    z: 1.6
+  orientation:
+    x: -1.38
+    y: -1.51
+    z: 1.91
+    w: 1.0
+' -1
