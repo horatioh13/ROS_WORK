@@ -1,6 +1,6 @@
 # Real-Time Cartesian Control of UR Robot via MoveIt Servo
 
-This repository provides the necessary steps to achieve **real-time Cartesian control** of any Universal Robot (UR) using **MoveIt Servo**.
+[This repository](https://github.com/horatioh13/ROS_WORK) provides the necessary steps to achieve **real-time Cartesian control** of any Universal Robot (UR) using **MoveIt Servo**.
 
 Objective of this README: To allow a novice user to fully replicate the steps required to set up real-time cartesian control of a UR robot.
 
